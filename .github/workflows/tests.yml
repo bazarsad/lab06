@@ -25,7 +25,7 @@ jobs:
 
       - name: Run Maven Tests
         # Хэрэв pom.xml файл өөр хавтсанд байгаа бол lab06-г тэр хавтасны нэрээр солино
-        working-directory: lab06 
+        working-directory: java
         run: mvn -B test
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
