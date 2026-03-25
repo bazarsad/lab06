@@ -1,31 +1,24 @@
-name: Java CI Test Run
-run-name: ${{ github.actor }} is testing Java code 🚀
-
-on: [push]
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
-  Build-and-Test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      
-      - name: Check out repository code
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Set up JDK 23
-        uses: actions/setup-java@v4
-        with:
-          java-version: '23'
-          distribution: 'oracle'
-          cache: maven
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: maven
 
-      - name: List files for debugging
-        run: ls -R ${{ github.workspace }}
-
-      - name: Run Maven Tests
-      
-        working-directory: lab06/java
-        run: mvn test
-
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+    - name: Build and Test with Maven
+      run: mvn -B test
+      working-directory: Java
